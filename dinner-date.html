@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dinner with me? 🍽️💕</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, "Noto Sans Thai", sans-serif;
+      background: #fff7f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 30px;
+      padding: 40px 25px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .emoji {
+      font-size: 55px;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-size: 32px;
+      margin: 15px 0 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 30px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    button {
+      border: none;
+      padding: 16px 18px;
+      border-radius: 18px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #fff1eb;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    button:hover {
+      transform: scale(1.05) rotate(-1deg);
+      background: #ffe0d4;
+    }
+
+    .start-btn {
+      background: #ffcad4;
+      font-weight: bold;
+      padding: 16px 30px;
+      font-size: 17px;
+    }
+
+    .start-btn:hover {
+      background: #ff9eb5;
+    }
+
+    /* MENU */
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .special {
+      grid-column: span 2;
+      background: #ffcad4;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .special:hover {
+      background: #ff9eb5;
+    }
+
+    /* RESULT */
+
+    #menuPage,
+    #result {
+      display: none;
+    }
+
+    #result {
+      margin-top: 10px;
+      padding: 25px;
+      border-radius: 20px;
+      background: #fff5d6;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    #result h2 {
+      margin-top: 0;
+      font-size: 25px;
+    }
+
+    .again {
+      margin-top: 15px;
+      background: #eee;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+
+    <!-- 💌 OPENING PAGE -->
+    <div id="introPage">
+      <div class="emoji">👀💌</div>
+
+      <h1>Hey you...</h1>
+
+      <p class="subtitle">
+        I have a little question for you 👀<br><br>
+        <strong>Would you like to hang out with me?</strong> 🥺💕<br><br>
+        Good food, good vibes,<br>
+        and hopefully good company 🤍
+      </p>
+
+      <button class="start-btn" onclick="showMenu()">
+        Tell me more 👀
+      </button>
+
+      <div class="footer">
+        *ไม่มีคำตอบผิด... นอกจากไม่กดปุ่มนี้ 😌*
+      </div>
+    </div>
+
+
+    <!-- 🍽️ MENU PAGE -->
+    <div id="menuPage">
+      <div class="emoji">🍽️🤔</div>
+
+      <h1>เย็นนี้อยากทานอะไรคะ?</h1>
+
+      <p class="subtitle">
+        กรุณาเลือกคำตอบอย่างตั้งใจ<br>
+        เพราะมันอาจส่งผลต่อมื้อเย็นของเรา 😌
+      </p>
+
+      <div class="menu-grid">
+        <button onclick="choose('หมูกระทะ 🥓🔥')">หมูกระทะ 🥓🔥</button>
+        <button onclick="choose('อาหารตามสั่ง 🍳')">อาหารตามสั่ง 🍳</button>
+        <button onclick="choose('ราเม็ง 🍜')">ราเม็ง 🍜</button>
+        <button onclick="choose('ก๋วยเตี๋ยว / บะหมี่ 🥢')">ก๋วยเตี๋ยว / บะหมี่ 🥢</button>
+        <button onclick="choose('ข้าวต้ม 🍚')">ข้าวต้ม 🍚</button>
+        <button onclick="choose('ส้มตำ 🌶️')">ส้มตำ 🌶️</button>
+        <button onclick="chooseAnything()">อะไรก็ได้ 🤷‍♀️</button>
+
+        <button class="special" onclick="chooseSpecial()">
+          เธอ! 😳💕
+        </button>
+      </div>
+
+      <div class="footer">
+        *คำตอบทุกข้อมีโอกาสนำไปสู่การได้เจอกัน 99.99%*
+      </div>
+    </div>
+
+
+    <!-- 🎉 RESULT PAGE -->
+    <div id="result">
+      <div class="emoji" id="resultEmoji">🎉</div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultText"></p>
+
+      <button class="again" onclick="resetChoice()">
+        เปลี่ยนใจได้อีกทีนะ 😆
+      </button>
+    </div>
+
+  </div>
+
+
+  <script>
+    function showMenu() {
+      document.getElementById("introPage").style.display = "none";
+      document.getElementById("menuPage").style.display = "block";
+    }
+
+    function choose(food) {
+      document.getElementById("menuPage").style.display = "none";
+      document.getElementById("result").style.display = "block";
+
+      document.getElementById("resultEmoji").innerText = "😋🍽️";
+      document.getElementById("resultTitle").innerText =
+        "โอเค! งั้น " + food;
+
+      document.getElementById("resultText").innerHTML =
+        "สรุปว่าเราไปกิน <b>" + food + "</b> กันนะ 🥰<br><br>" +
+        "หน้าที่ของคุณคือเลือกอาหาร<br>" +
+        "หน้าที่ของเราคือ... ไปด้วยกัน 😌✨";
+    }
+
+    function chooseAnything() {
+      document.getElementById("menuPage").style.display = "none";
+      document.getElementById("result").style.display = "block";
+
+      document.getElementById("resultEmoji").innerText = "😏✨";
+      document.getElementById("resultTitle").innerText =
+        "โอเค... คุณพูดเองนะว่าอะไรก็ได้ 😌";
+
+      document.getElementById("resultText").innerHTML =
+        "งั้นเราเลือกเองนะ! 🤭<br><br>" +
+        "<b>แต่มีข้อแม้เดียว...</b><br>" +
+        "ห้ามบ่น ห้ามถามว่ากินอะไร และต้องไปด้วยกัน 😂💕";
+    }
+
+    function chooseSpecial() {
+      document.getElementById("menuPage").style.display = "none";
+      document.getElementById("result").style.display = "block";
+
+      document.getElementById("resultEmoji").innerText = "🚨😳💕";
+      document.getElementById("resultTitle").innerText =
+        "เดี๋ยวนะ... อันนี้ไม่ใช่เมนูอาหารแล้วนะ!";
+
+      document.getElementById("resultText").innerHTML =
+        "แต่ถ้าเลือก <b>เธอ!</b> ก็ถือว่าเป็นคำตอบที่ดีมากค่ะ 😌💕<br><br>" +
+        "งั้นเปลี่ยนโจทย์ใหม่เป็น...<br>" +
+        "<b>ไป Dinner กับเรามั้ยคะ? 🍷✨</b><br><br>" +
+        "ปล. ไม่ต้องกินเรานะ แค่ไปกินข้าวด้วยกันก็พอ 😂";
+    }
+
+    function resetChoice() {
+      document.getElementById("result").style.display = "none";
+      document.getElementById("menuPage").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
